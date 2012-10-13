@@ -51,19 +51,19 @@ $('a.b-lecture__edit').css('opacity', 0);
 
 $('.b-lecture').hover(
   function() {
-    $(this).children('a.b-lecture__remove').fadeTo('slow', 1);
+    $(this).children('a.b-lecture__remove').fadeTo('fast', 1);
   },
   function() {
-    $(this).children('a.b-lecture__remove').fadeTo('opacity', 0);
+    $(this).children('a.b-lecture__remove').fadeTo('fast', 0);
   }
 );
 
 $('.b-lecture').hover(
   function() {
-    $(this).children('a.b-lecture__edit').fadeTo('slow', 1);
+    $(this).children('a.b-lecture__edit').fadeTo('fast', 1);
   },
   function() {
-    $(this).children('a.b-lecture__edit').fadeTo('opacity', 0);
+    $(this).children('a.b-lecture__edit').fadeTo('fast', 0);
   }
 );
 
