@@ -1,0 +1,49 @@
+body {
+  background-color: #fdf6e3;
+}
+
+/* b-admin */
+
+ul.b-admin {
+  width: 200px;
+  margin: 10px auto 0 auto;
+}
+
+li.b-admin__upload {
+  display: inline;
+}
+
+li.b-admin__download {
+  display: inline-block;
+}
+
+li.b-admin__search {
+  display: inline-block;
+}
+
+.b-admin__search {
+  width: 200px;
+  margin: 0 auto;
+}
+
+/* b-lecture */
+.b-lecture__remove i {
+  text-decoration: none;
+}
+
+.b-lecture__edit i {
+  text-decoration: none;
+}
+
+
+ul.thumbnails li.span3:nth-child(4n + 5) {
+  margin-left : 0px;
+}
+
+ul.thumbnails li.span3:nth-child(odd) {
+  background-color: #e3ede5;
+}
+
+ul.thumbnails li.span3:nth-child(even) {
+  background-color: #ede3eb;
+}

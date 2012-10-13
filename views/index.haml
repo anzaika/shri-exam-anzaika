@@ -1,0 +1,48 @@
+!!!
+
+%head
+  %link{:href => '/css/bootstrap.min.css', :rel => 'stylesheet', :type => 'text/css'}
+  %link{:href => '/css/bootstrap-responsive.min.css', :rel => 'stylesheet', :type => 'text/css'}
+  %link{:href => '/css/font-awesome.css', :rel => 'stylesheet', :type => 'text/css'}
+  %link{:href => '/css/style.css', :rel => 'stylesheet', :type => 'text/css'}
+  %title
+    Title
+
+%body
+  .container
+    %ul.b-admin
+      %li.b-admin__upload
+        %a.btn
+          %i.icon-upload-alt
+          Выгрузить
+      %li.b-admin__download
+        %a.btn
+          %i.icon-download-alt
+          Загрузить
+      %li.b-admin__search
+        %input.search-query{ 'type'        => 'text',
+                             'placeholder' => 'поиск',
+                             'data-bind'   => 'value: searchTerm' }
+
+    %hr/
+
+    .row-fluid
+      .span12
+        %ul.thumbnails{ 'data-bind' => 'foreach:lectures'}
+          %li.span3.thumbnail.b-lecture
+            %a.pull-right.b-lecture__remove{ 'href' => '#', 'data-bind' => "click: $parent.removeLecture"}
+              %i.icon-remove
+            %a.pull-right.b-lecture__edit{ 'href' => '#' }
+              %i.icon-pencil
+            #title{ 'data-bind'    => "text:attr('title')" }
+            #lecturer{ 'data-bind' => "text:attr('lecturer')" }
+            #date{ 'data-bind'     => "text:attr('date')" }
+
+  %script{:src => '/js/modernizr.js'}
+  %script{:src => '//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'}
+  %script{:src => '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js'}
+  %script{:src => '/js/js-model.js'}
+  -# %script{:src => '/js/sammy.js'}
+  %script{:src => '/js/knockout.js'}
+  -# %script{:src => '/js/underscore.js'}
+  %script{:src => '/js/app.js'}
