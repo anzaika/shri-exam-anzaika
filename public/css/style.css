@@ -3,44 +3,85 @@ body {
 }
 
 .container {
-  padding-top: 20px;
+  padding-top: 12px;
 }
 
 /* b-admin */
 
+.b-admin {
+  margin-bottom: -10px;
+  height: 30px;
+}
+
+.b-admin ul {
+  list-style-type: none;
+  width: 100%;
+  float: left;
+}
+
+.b-admin li {
+  float: left;
+}
+
+
+/* b-admin__addLecture */
+
 .b-admin__addLecture a {
   text-decoration: none;
+  float: left;
+  line-height: 2.5;
 }
 
 .b-admin__addLecture i {
   color: #555;
   font-size: 20px;
-  padding: 0 3px;
+  padding-top: 9px;
+  padding-right: 0px;
+  padding-bottom: -10px;
 }
+
+/* b-admin__upload  */
 
 .b-admin__upload a {
   text-decoration: none;
+  float: left;
+  line-height: 2.5;
 }
 
 .b-admin__upload i {
   color: #555;
   font-size: 20px;
-  padding: 0 3px;
+  padding-top: 9px;
+  padding-right: 0px;
+  padding-left: 5px;
 }
+
+/* b-admin__download */
 
 .b-admin__download a {
   text-decoration: none;
+  float: left;
 }
 
 .b-admin__download i {
   color: #555;
   font-size: 20px;
-  padding: 0 3px;
+  padding-top: 9px;
+  padding-right: 0px;
+  padding-left: 9px;
 }
 
-.b-admin__search input {
-  margin: 0px auto;
+/* b-admin__search */
+
+.b-admin__search {
+  text-decoration: none;
+  float: left;
+  padding-left: 350px;
 }
+
+/* .b-admin__search input { */
+/*   margin: 0px auto; */
+/* } */
 
 /* b-lecture */
 .b-lecture__remove i {
@@ -65,4 +106,9 @@ ul.thumbnails li.span3:nth-child(odd) {
 
 ul.thumbnails li.span3:nth-child(even) {
   background-color: #ede3eb;
+}
+
+
+.tool-class {
+  background-color: #fff;
 }
