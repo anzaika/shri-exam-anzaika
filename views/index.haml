@@ -18,15 +18,17 @@
             %label.control-label{ 'for' => 'title' }
               Тема
             .controls
-              %input.input-xxlarge#title{ 'type' => 'text',
-                                          'data-bind' => 'value:title',
-                                          'placeholder' => 'Разработка и дизайн', }
+              %input#title{ 'class' => 'input-xlarge',
+                            'type' => 'text',
+                            'data-bind' => 'value:title',
+                            'placeholder' => 'Разработка и дизайн' }
 
           .control-group
             %label.control-label{ 'for' => 'lecturer' }
               Лектор
             .controls
-              %input#lecturer{ 'type' => 'text',
+              %input#lecturer{ 'class' => 'input-xlarge',
+                               'type' => 'text',
                                'data-bind' => 'value:lecturer',
                                'placeholder' => 'Велкопоповицкий Козел' }
 
@@ -34,7 +36,8 @@
             %label.control-label{ 'for' => 'date' }
               Дата
             .controls
-              %input#date{ 'type' => 'text',
+              %input#date{ 'class' => 'input-small',
+                           'type' => 'text',
                            'data-bind' => 'value:date',
                            'placeholder' => '10.01.2012' }
 
@@ -42,7 +45,8 @@
             %label.control-label{ 'for' => 'time' }
               Время
             .controls
-              %input#time{ 'type' => 'text',
+              %input#time{ 'class' => 'input-small',
+                           'type' => 'text',
                            'data-bind' => 'value:time',
                            'placeholder' => '11:00' }
 
@@ -50,7 +54,7 @@
             %label.control-label{ 'for' => 'pdf' }
               Презентация
             .controls
-              %input#pdf{ 'class' => 'input-xxlarge',
+              %input#pdf{ 'class' => 'input-xlarge',
                           'type' => 'text',
                           'data-bind' => 'value:pdf',
                           'placeholder' => 'http://goo.gl/f8Yka' }
@@ -59,19 +63,14 @@
             %label.control-label{ 'for' => 'homework' }
               Домашка
             .controls
-              %input#homework{ 'class' => 'input-xxlarge',
+              %input#homework{ 'class' => 'input-xlarge',
                                'type' => 'text',
                                'data-bind' => 'value:homework',
                                'placeholder' => 'http://goo.gl/h23yx' }
 
-          .control-group
-            %label.control-label{ 'for' => 'desc' }
-              Описание
-            .controls
-              %textarea{ 'rows' => 4, 'data-bind' => 'value:desc' }
-
           .form-actions
-            %button.btn.btn-primary{ 'type' => 'submit'}
+            %button.btn.btn-primary{ 'type' => 'submit',
+                                     'data-bind' => 'click: $root.saveLecture' }
               Сохранить
 
   #b-search
@@ -85,7 +84,8 @@
                     'rel' => 'tooltip',
                     'title' => 'Добавить лекцию',
                     'data-placement' => 'bottom',
-                    'data-delay' => 400 }
+                    'data-delay' => 400,
+                    'data-bind' => "click: $root.editLecture"}
                   %i.icon-plus
               %li.b-admin__upload
                 %a{ 'href' => '#',
@@ -125,13 +125,12 @@
               #title{    'data-bind' => "text:attr('title')"    }
               #lecturer{ 'data-bind' => "text:attr('lecturer')" }
               #date.pull-left{     'data-bind' => "text:attr('date')"     }
-              #time.pull-left{     'data-bind' => "text:attr('time')"     }
+              %strong
+                #time.pull-left{     'data-bind' => "text:attr('time')"     }
               %br/
-              #pdf{      'data-bind' => "if :attr('pdf')"      }
-                %a.pdf.pull-right{ 'data-bind' => "attr: { href: attr('pdf')}, text:'pdf'"}
+              %a.pdf.pull-right{ 'data-bind' => "attr: { href: attr('pdf')}, text:'pdf'"}
               #homework{ 'data-bind' => "if :attr('homework')" }
                 %a.homework.pull-right{ 'data-bind' => "attr: { href: attr('homework')}, text:'домашка'"}
-              #desc{     'data-bind' => "text:attr('desc')"     }
 
   %script{:src => '/js/modernizr.js'}
   %script{:src => '//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'}

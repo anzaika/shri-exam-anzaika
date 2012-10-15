@@ -37,6 +37,14 @@ var Lecture = Model('lecture', function() {
 
     removeLecture: function(lecture) {
       lecture.destroy();
+    },
+
+    parseCSV: function(csv) {
+      var lines = csv.split("\n");
+      for (var i=0; i<lines.length; i++){
+        var p = lines[i].split(";");
+        this.addLecture.apply(this, p);
+      }
     }
 
   });
@@ -45,24 +53,28 @@ var Lecture = Model('lecture', function() {
 function ModalViewModel() {
   var self = this;
 
-  self.lecture = '';
-  self.title = ko.observable();
-  self.lecturer = ko.observable();
-  self.date = ko.observable();
-  self.time = ko.observable();
-  self.pdf = ko.observable();
-  self.homework = ko.observable();
-  self.desc = ko.observable();
+  self.title = ko.observable('');
+  self.lecturer = ko.observable('');
+  self.date = ko.observable('');
+  self.time = ko.observable('');
+  self.pdf = ko.observable('');
+  self.homework = ko.observable('');
 
   self.setLecture = function(lecture) {
-    self.lecture = lecture;
-    self.title(lecture.attr('title'));
-    self.lecturer(lecture.attr('lecturer'));
-    self.date(lecture.attr('date'));
-    self.time(lecture.attr('time'));
-    self.pdf(lecture.attr('pdf'));
-    self.homework(lecture.attr('homework'));
-    self.desc(lecture.attr('desc'));
+    if (lecture instanceof Lecture)
+    {
+      self.lecture = lecture;
+      self.title(lecture.attr('title'));
+      self.lecturer(lecture.attr('lecturer'));
+      self.date(lecture.attr('date'));
+      self.time(lecture.attr('time'));
+      self.pdf(lecture.attr('pdf'));
+      self.homework(lecture.attr('homework'));
+    }
+    else
+    {
+      self.lecture = new Lecture();
+    }
   };
 
   self.saveLecture = function() {
@@ -72,10 +84,14 @@ function ModalViewModel() {
     self.lecture.attr('time', self.time());
     self.lecture.attr('pdf', self.pdf());
     self.lecture.attr('homework', self.homework());
-    self.lecture.attr('desc', self.desc());
     self.lecture.save();
+    window.location.reload();
   };
 
+}
+
+function LoadViewModel() {
+  var self = this;
 }
 
 function LecturesViewModel(modalVM) {
@@ -101,8 +117,8 @@ function LecturesViewModel(modalVM) {
     $('.modal').modal();
   };
 
-  self.addLecture = function(title, lecturer, date, time, pdf, homework, desc) {
-    Lecture.addLecture(title, lecturer, date, time, pdf, homework, desc);
+  self.addLecture = function(title, lecturer, date, time, pdf, homework) {
+    Lecture.addLecture(title, lecturer, date, time, pdf, homework);
     self.updateSearch();
   };
 
@@ -114,6 +130,11 @@ function LecturesViewModel(modalVM) {
   self.updateSearch = function() {
     self.searchTerm.valueHasMutated();
   };
+
+  self.parseCSV = function(csv) {
+    Lecture.parseCSV(csv);
+    self.updateSearch();
+  };
 }
 
 Lecture.load();
@@ -123,14 +144,8 @@ var lvm = new LecturesViewModel(mvm);
 ko.applyBindings(lvm, document.getElementById('b-search'));
 ko.applyBindings(mvm, document.getElementById('b-modal'));
 
-$('li.b-admin__addLecture').click(function() {
-  lvm.editLecture( new Lecture());
-});
-
-$('#b-modal button').click(function() {
-  mvm.saveLecture();
-  window.location.reload();
-  $('.modal').modal('toggle');
+$('.b-admin__print').click(function() {
+  window.print();
 });
 
 // $('li.b-lecture').hover(
