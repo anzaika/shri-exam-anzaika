@@ -13,7 +13,8 @@ var Lecture = Model('lecture', function() {
       return this.select(function() {
         var patt = new RegExp(regexp, 'i');
         return patt.test(this.attr('title')) ||
-               patt.test(this.attr('lecturer'));
+               patt.test(this.attr('lecturer')) ||
+               patt.test(this.attr('date'));
       }).all();
     },
 
@@ -44,6 +45,7 @@ var Lecture = Model('lecture', function() {
 function ModalViewModel() {
   var self = this;
 
+  self.lecture = '';
   self.title = ko.observable();
   self.lecturer = ko.observable();
   self.date = ko.observable();
@@ -53,13 +55,25 @@ function ModalViewModel() {
   self.desc = ko.observable();
 
   self.setLecture = function(lecture) {
-    self.title = lecture.attr('title');
-    self.lecturer = lecture.attr('lecturer');
-    self.date = lecture.attr('date');
-    self.time = lecture.attr('time');
-    self.pdf = lecture.attr('pdf');
-    self.homework = lecture.attr('homework');
-    self.desc = 'hello';
+    self.lecture = lecture;
+    self.title(lecture.attr('title'));
+    self.lecturer(lecture.attr('lecturer'));
+    self.date(lecture.attr('date'));
+    self.time(lecture.attr('time'));
+    self.pdf(lecture.attr('pdf'));
+    self.homework(lecture.attr('homework'));
+    self.desc(lecture.attr('desc'));
+  };
+
+  self.saveLecture = function() {
+    self.lecture.attr('title', self.title());
+    self.lecture.attr('lecturer', self.lecturer());
+    self.lecture.attr('date', self.date());
+    self.lecture.attr('time', self.time());
+    self.lecture.attr('pdf', self.pdf());
+    self.lecture.attr('homework', self.homework());
+    self.lecture.attr('desc', self.desc());
+    self.lecture.save();
   };
 
 }
@@ -89,11 +103,15 @@ function LecturesViewModel(modalVM) {
 
   self.addLecture = function(title, lecturer, date, time, pdf, homework, desc) {
     Lecture.addLecture(title, lecturer, date, time, pdf, homework, desc);
-    self.searchTerm.valueHasMutated();
+    self.updateSearch();
   };
 
   self.removeLecture = function(lecture) {
     lecture.destroy();
+    self.updateSearch();
+  };
+
+  self.updateSearch = function() {
     self.searchTerm.valueHasMutated();
   };
 }
@@ -105,31 +123,32 @@ var lvm = new LecturesViewModel(mvm);
 ko.applyBindings(lvm, document.getElementById('b-search'));
 ko.applyBindings(mvm, document.getElementById('b-modal'));
 
-$('#b-search a').tooltip();
-$('a.b-lecture__remove').hide();
-$('a.b-lecture__edit').hide();
+$('li.b-admin__addLecture').click(function() {
+  lvm.editLecture( new Lecture());
+});
 
-$('li.b-lecture').hover(
-  function() {
-    $(this).children('a.b-lecture__remove').fadeIn();
-  },
-  function() {
-    $(this).children('a.b-lecture__remove').fadeOut();
-  }
-);
+$('#b-modal button').click(function() {
+  mvm.saveLecture();
+  window.location.reload();
+  $('.modal').modal('toggle');
+});
 
-$('li.b-lecture').hover(
-  function() {
-    $(this).children('a.b-lecture__edit').fadeIn();
-  },
-  function() {
-    $(this).children('a.b-lecture__edit').fadeOut();
-  }
-);
+// $('li.b-lecture').hover(
+//   function() {
+//     $(this).children('a.b-lecture__remove').fadeIn();
+//   },
+//   function() {
+//     $(this).children('a.b-lecture__remove').fadeOut();
+//   }
+// );
+
+// $('li.b-lecture').hover(
+//   function() {
+//     $(this).children('a.b-lecture__edit').fadeIn();
+//   },
+//   function() {
+//     $(this).children('a.b-lecture__edit').fadeOut();
+//   }
+// );
 
 $('.b-admin__search input').focus();
-
-// new Lecture('Дизайн', 'Михаил Трошев', '1.01.2012'),
-// new Lecture('Разработка', 'Сергей Давыдов', '2.01.2012'),
-// new Lecture('Тестирование', 'Николай Понкин', '3.01.2012'),
-// new Lecture('Деплой', 'Дмитрий Негалустов', '4.01.2012')
