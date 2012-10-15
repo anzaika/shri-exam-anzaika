@@ -11,8 +11,6 @@
 %body
   #b-modal
     .modal.hide.fade{ 'aria-hidden' => 'true' }
-      .modal-header
-        Hello
       .modal-body
         %form.form-horizontal
 
@@ -20,7 +18,7 @@
             %label.control-label{ 'for' => 'title' }
               Тема
             .controls
-              %input#title{ 'type' => 'text', 'data-bind' => 'value:title, valueUpdate: "afterkeydown"'  }
+              %input.input-xxlarge#title{ 'type' => 'text', 'data-bind' => 'value:title'  }
 
           .control-group
             %label.control-label{ 'for' => 'lecturer' }
@@ -44,19 +42,20 @@
             %label.control-label{ 'for' => 'pdf' }
               Презентация
             .controls
-              %input#pdf{ 'type' => 'text', 'data-bind' => 'value:pdf' }
+              %input.input-xxlarge#pdf{ 'type' => 'text', 'data-bind' => 'value:pdf' }
 
           .control-group
             %label.control-label{ 'for' => 'homework' }
               Домашка
             .controls
-              %input#homework{ 'type' => 'text', 'data-bind' => 'value:homework' }
+              %input.input-xxlarge#homework{ 'type' => 'text', 'data-bind' => 'value:homework' }
 
           .control-group
             %label.control-label{ 'for' => 'desc' }
               Описание
             .controls
-              %input#desc{ 'type' => 'text', 'data-bind' => 'value:desc' }
+              %textarea{ 'rows' => 4, 'data-bind' => 'value:desc' }
+              -# %input#desc{ 'type' => 'text', 'data-bind' => 'value:desc' }
 
   #b-search
     .container
