@@ -61,6 +61,7 @@ function ModalViewModel() {
   self.homework = ko.observable('');
 
   self.setLecture = function(lecture) {
+    $('#b-editModal .modal').modal();
     if (lecture instanceof Lecture)
     {
       self.lecture = lecture;
@@ -92,11 +93,24 @@ function ModalViewModel() {
 
 function LoadViewModel() {
   var self = this;
+
+  self.data = ko.observable('hello');
+
+  self.openDownload = function() {
+    $('#b-loadModal .modal').modal();
+  };
+
+  self.download = function() {
+    Lecture.parseCSV(self.data());
+    window.location.reload();
+  };
+
 }
 
-function LecturesViewModel(modalVM) {
+function LecturesViewModel(modalVM, loadVM) {
   var self = this;
   var modal = modalVM;
+  var load = loadVM;
 
   self.searchTerm = ko.observable('');
 
@@ -114,7 +128,10 @@ function LecturesViewModel(modalVM) {
 
   self.editLecture = function(lecture) {
     modal.setLecture(lecture);
-    $('.modal').modal();
+  };
+
+  self.downloadLectures = function() {
+    load.openDownload();
   };
 
   self.addLecture = function(title, lecturer, date, time, pdf, homework) {
@@ -138,11 +155,13 @@ function LecturesViewModel(modalVM) {
 }
 
 Lecture.load();
-var mvm = new ModalViewModel();
-var lvm = new LecturesViewModel(mvm);
+var modalvm = new ModalViewModel();
+var loadvm = new LoadViewModel();
+var lecturevm = new LecturesViewModel(modalvm, loadvm);
 
-ko.applyBindings(lvm, document.getElementById('b-search'));
-ko.applyBindings(mvm, document.getElementById('b-modal'));
+ko.applyBindings(lecturevm, document.getElementById('b-search'));
+ko.applyBindings(modalvm, document.getElementById('b-editModal'));
+ko.applyBindings(loadvm, document.getElementById('b-loadModal'));
 
 $('.b-admin__print').click(function() {
   window.print();

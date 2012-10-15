@@ -9,7 +9,23 @@
     Лекции ШРИ
 
 %body
-  #b-modal
+  #b-loadModal
+    .modal.hide.fade{ 'aria-hidden' => 'true' }
+      .modal-body
+        %form.form-horizontal
+          .control-group
+            %label.control-label{ 'for' => 'csv' }
+              Данные
+            .controls
+              %textarea#csv{ 'rows' => 5,
+                             'data-bind' => 'value:data'}
+
+          .form-actions
+            %button.btn.btn-primary{ 'type' => 'submit',
+                                     'data-bind' => 'click: $root.download' }
+              Сохранить
+
+  #b-editModal
     .modal.hide.fade{ 'aria-hidden' => 'true' }
       .modal-body
         %form.form-horizontal
@@ -99,7 +115,8 @@
                     'rel' => 'tooltip',
                     'title' => 'Загрузить данные',
                     'data-placement' => 'bottom',
-                    'data-delay' => 400 }
+                    'data-delay' => 400,
+                    'data-bind' => "click: $root.downloadLectures"}
                   %i.icon-download-alt
               %li.b-admin__print
                 %a{ 'href' => '#',
@@ -122,11 +139,11 @@
                 %i.icon-remove
               %a.pull-right.b-lecture__edit{ 'href' => '#', 'data-bind' => "click: $parent.editLecture" }
                 %i.icon-pencil
-              #title{    'data-bind' => "text:attr('title')"    }
+              #title{ 'data-bind' => "text:attr('title')" }
               #lecturer{ 'data-bind' => "text:attr('lecturer')" }
-              #date.pull-left{     'data-bind' => "text:attr('date')"     }
+              #date.pull-left{ 'data-bind' => "text:attr('date')" }
               %strong
-                #time.pull-left{     'data-bind' => "text:attr('time')"     }
+                #time.pull-left{ 'data-bind' => "text:attr('time')" }
               %br/
               %a.pdf.pull-right{ 'data-bind' => "attr: { href: attr('pdf')}, text:'pdf'"}
               #homework{ 'data-bind' => "if :attr('homework')" }
