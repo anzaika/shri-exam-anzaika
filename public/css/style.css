@@ -121,15 +121,6 @@ ul.thumbnails li.span3:nth-child(even) {
   background-color: #ede3eb;
 }
 
-.tool-class {
-  background-color: #fff;
-}
-
-.modal {
-  width: 800px;
-  margin: -345px 0 0 -375px;
-}
-
 .pdf:hover {
   text-decoration: none;
 }
@@ -142,7 +133,7 @@ ul.thumbnails li.span3:nth-child(even) {
   text-decoration: none;
 }
 
-#time {
+.b-lecture #time {
   margin-left: 8px;
 }
 
