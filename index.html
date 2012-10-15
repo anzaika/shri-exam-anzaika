@@ -1,1 +1,155 @@
-My GitHub Page
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+  <link href='/css/bootstrap.min.css' rel='stylesheet' type='text/css' />
+  <link href='/css/font-awesome.css' rel='stylesheet' type='text/css' />
+  <link href='/css/style.css' rel='stylesheet' type='text/css' />
+  <title>
+    Лекции ШРИ
+  </title>
+</head>
+<body>
+  <div id='b-loadModal'>
+    <div aria-hidden='true' class='modal hide fade'>
+      <div class='modal-body'>
+        <form class='form-horizontal'>
+          <div class='control-group'>
+            <label class='control-label' for='csv'>
+              Данные
+            </label>
+            <div class='controls'>
+              <textarea data-bind='value:data' id='csv' rows='5'></textarea>
+            </div>
+          </div>
+          <div class='form-actions'>
+            <button class='btn btn-primary' data-bind='click: $root.download' type='submit'>
+              Сохранить
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div id='b-editModal'>
+    <div aria-hidden='true' class='modal hide fade'>
+      <div class='modal-body'>
+        <form class='form-horizontal'>
+          <div class='control-group'>
+            <label class='control-label' for='title'>
+              Тема
+            </label>
+            <div class='controls'>
+              <input class='input-xlarge' data-bind='value:title' id='title' placeholder='Разработка и дизайн' type='text' />
+            </div>
+          </div>
+          <div class='control-group'>
+            <label class='control-label' for='lecturer'>
+              Лектор
+            </label>
+            <div class='controls'>
+              <input class='input-xlarge' data-bind='value:lecturer' id='lecturer' placeholder='Велкопоповицкий Козел' type='text' />
+            </div>
+          </div>
+          <div class='control-group'>
+            <label class='control-label' for='date'>
+              Дата
+            </label>
+            <div class='controls'>
+              <input class='input-small' data-bind='value:date' id='date' placeholder='10.01.2012' type='text' />
+            </div>
+          </div>
+          <div class='control-group'>
+            <label class='control-label' for='time'>
+              Время
+            </label>
+            <div class='controls'>
+              <input class='input-small' data-bind='value:time' id='time' placeholder='11:00' type='text' />
+            </div>
+          </div>
+          <div class='control-group'>
+            <label class='control-label' for='pdf'>
+              Презентация
+            </label>
+            <div class='controls'>
+              <input class='input-xlarge' data-bind='value:pdf' id='pdf' placeholder='http://goo.gl/f8Yka' type='text' />
+            </div>
+          </div>
+          <div class='control-group'>
+            <label class='control-label' for='homework'>
+              Домашка
+            </label>
+            <div class='controls'>
+              <input class='input-xlarge' data-bind='value:homework' id='homework' placeholder='http://goo.gl/h23yx' type='text' />
+            </div>
+          </div>
+          <div class='form-actions'>
+            <button class='btn btn-primary' data-bind='click: $root.saveLecture' type='submit'>
+              Сохранить
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div id='b-search'>
+    <div class='container'>
+      <div class='b-admin'>
+        <div class='row-fluid'>
+          <div class='span12'>
+            <ul>
+              <li class='b-admin__addLecture'>
+                <a data-bind='click: $root.editLecture' data-delay='400' data-placement='bottom' href='#' rel='tooltip' title='Добавить лекцию'>
+                  <i class='icon-plus'></i>
+                </a>
+              </li>
+              <li class='b-admin__upload'>
+                <a data-delay='400' data-placement='bottom' href='#' rel='tooltip' title='Выгрузить данные'>
+                  <i class='icon-upload-alt'></i>
+                </a>
+              </li>
+              <li class='b-admin__download'>
+                <a data-bind='click: $root.downloadLectures' data-delay='400' data-placement='bottom' href='#' rel='tooltip' title='Загрузить данные'>
+                  <i class='icon-download-alt'></i>
+                </a>
+              </li>
+              <li class='b-admin__print'>
+                <a data-delay='400' data-placement='bottom' href='#' rel='tooltip' title='Печать'>
+                  <i class='icon-print'></i>
+                </a>
+              </li>
+              <li class='b-admin__search'>
+                <input class='search-query' data-bind='value: searchTerm, valueUpdate: "afterkeydown"' placeholder='поиск' type='text' />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class='row-fluid'>
+        <div class='span12'>
+          <ul class='thumbnails' data-bind='foreach: lectures'>
+            <li class='span3 thumbnail b-lecture'>
+              <a class='pull-right b-lecture__remove' data-bind='click: $parent.removeLecture' href='#'>
+                <i class='icon-remove'></i>
+              </a>
+              <a class='pull-right b-lecture__edit' data-bind='click: $parent.editLecture' href='#'>
+                <i class='icon-pencil'></i>
+              </a>
+              <div data-bind="text:attr('title')" id='title'></div>
+              <div data-bind="text:attr('lecturer')" id='lecturer'></div>
+              <div class='pull-left' data-bind="text:attr('date')" id='date'></div>
+              <strong>
+                <div class='pull-left' data-bind="text:attr('time')" id='time'></div>
+              </strong>
+              <br />
+              <a class='pdf pull-right' data-bind="attr: { href: attr('pdf')}, text:'pdf'"></a>
+              <div data-bind="if :attr('homework')" id='homework'>
+                <a class='homework pull-right' data-bind="attr: { href: attr('homework')}, text:'домашка'"></a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src='app.js'></script>
+</body>
