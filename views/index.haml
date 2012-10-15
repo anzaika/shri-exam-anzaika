@@ -6,46 +6,118 @@
   %link{:href => '/css/font-awesome.css', :rel => 'stylesheet', :type => 'text/css'}
   %link{:href => '/css/style.css', :rel => 'stylesheet', :type => 'text/css'}
   %title
-    Title
+    Лекции ШРИ
 
 %body
-  .container
-    .row-fluid
-      .span2
-        .b-admin__addLecture
-          %a{ 'href' => '#' }
-            %i.icon-plus
-        .b-admin__upload
-          %a{ 'href' => '#' }
-            %i.icon-upload-alt
-        .b-admin__download
-          %a{ 'href' => '#' }
-            %i.icon-download-alt
-      .span2
-      .span4
-        .b-admin__search
-          %input.search-query{ 'type'        => 'text',
-                               'placeholder' => 'поиск',
-                               'data-bind'   => 'value: searchTerm' }
-    %hr/
+  #b-modal
+    .modal.hide.fade{ 'aria-hidden' => 'true' }
+      .modal-header
+        Hello
+      .modal-body
+        %form.form-horizontal
 
-    .row-fluid
-      .span12
-        %ul.thumbnails{ 'data-bind' => 'foreach:lectures'}
-          %li.span3.thumbnail.b-lecture
-            %a.pull-right.b-lecture__remove{ 'href' => '#', 'data-bind' => "click: $parent.removeLecture"}
-              %i.icon-remove
-            %a.pull-right.b-lecture__edit{ 'href' => '#' }
-              %i.icon-pencil
-            #title{ 'data-bind'    => "text:attr('title')" }
-            #lecturer{ 'data-bind' => "text:attr('lecturer')" }
-            #date{ 'data-bind'     => "text:attr('date')" }
+          .control-group
+            %label.control-label{ 'for' => 'title' }
+              Тема
+            .controls
+              %input#title{ 'type' => 'text', 'data-bind' => 'value:title, valueUpdate: "afterkeydown"'  }
+
+          .control-group
+            %label.control-label{ 'for' => 'lecturer' }
+              Лектор
+            .controls
+              %input#lecturer{ 'type' => 'text', 'data-bind' => 'value:lecturer' }
+
+          .control-group
+            %label.control-label{ 'for' => 'date' }
+              Дата
+            .controls
+              %input#date{ 'type' => 'text', 'data-bind' => 'value:date' }
+
+          .control-group
+            %label.control-label{ 'for' => 'time' }
+              Время
+            .controls
+              %input#time{ 'type' => 'text', 'data-bind' => 'value:time' }
+
+          .control-group
+            %label.control-label{ 'for' => 'pdf' }
+              Презентация
+            .controls
+              %input#pdf{ 'type' => 'text', 'data-bind' => 'value:pdf' }
+
+          .control-group
+            %label.control-label{ 'for' => 'homework' }
+              Домашка
+            .controls
+              %input#homework{ 'type' => 'text', 'data-bind' => 'value:homework' }
+
+          .control-group
+            %label.control-label{ 'for' => 'desc' }
+              Описание
+            .controls
+              %input#desc{ 'type' => 'text', 'data-bind' => 'value:desc' }
+
+  #b-search
+    .container
+      .b-admin
+        .row-fluid
+          .span12
+            %ul
+              %li.b-admin__addLecture
+                %a{ 'href' => '#',
+                    'rel' => 'tooltip',
+                    'title' => 'Добавить лекцию',
+                    'data-placement' => 'bottom',
+                    'data-delay' => 400,
+                    'data-bind' => "click: $root.editLecture" }
+                  %i.icon-plus
+              %li.b-admin__upload
+                %a{ 'href' => '#',
+                    'rel' => 'tooltip',
+                    'title' => 'Выгрузить данные',
+                    'data-placement' => 'bottom',
+                    'data-delay' => 400 }
+                  %i.icon-upload-alt
+              %li.b-admin__download
+                %a{ 'href' => '#',
+                    'rel' => 'tooltip',
+                    'title' => 'Загрузить данные',
+                    'data-placement' => 'bottom',
+                    'data-delay' => 400 }
+                  %i.icon-download-alt
+              %li.b-admin__print
+                %a{ 'href' => '#',
+                    'rel' => 'tooltip',
+                    'title' => 'Печать',
+                    'data-placement' => 'bottom',
+                    'data-delay' => 400 }
+                  %i.icon-print
+              %li.b-admin__search
+                %input.search-query{ 'type'        => 'text',
+                                     'placeholder' => 'поиск',
+                                     'data-bind'   => 'value: searchTerm, valueUpdate: "afterkeydown"' }
+      %hr/
+
+      .row-fluid
+        .span12
+          %ul.thumbnails{ 'data-bind' => 'foreach: lectures' }
+            %li.span3.thumbnail.b-lecture
+              %a.pull-right.b-lecture__remove{ 'href' => '#', 'data-bind' => "click: $parent.removeLecture"}
+                %i.icon-remove
+              %a.pull-right.b-lecture__edit{ 'href' => '#', 'data-bind' => "click: $parent.editLecture" }
+                %i.icon-pencil
+              #title{    'data-bind' => "text:attr('title')"    }
+              #lecturer{ 'data-bind' => "text:attr('lecturer')" }
+              #date{     'data-bind' => "text:attr('date')"     }
+              #time{     'data-bind' => "text:attr('time')"     }
+              #pdf{      'data-bind' => "text:attr('pdf')"      }
+              #homework{ 'data-bind' => "text:attr('homework')" }
+              #desc{     'data-bind' => "text:attr('desc')"     }
 
   %script{:src => '/js/modernizr.js'}
   %script{:src => '//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'}
-  %script{:src => '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js'}
   %script{:src => '/js/js-model.js'}
-  -# %script{:src => '/js/sammy.js'}
   %script{:src => '/js/knockout.js'}
-  -# %script{:src => '/js/underscore.js'}
+  %script{:src => '/js/bootstrap.min.js'}
   %script{:src => '/js/app.js'}

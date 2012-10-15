@@ -71,6 +71,21 @@ body {
   padding-left: 9px;
 }
 
+/* b-admin__print */
+
+.b-admin__print a {
+  text-decoration: none;
+  float: left;
+}
+
+.b-admin__print i {
+  color: #555;
+  font-size: 20px;
+  padding-top: 9px;
+  padding-right: 0px;
+  padding-left: 9px;
+}
+
 /* b-admin__search */
 
 .b-admin__search {
