@@ -30,8 +30,7 @@ var Lecture = Model('lecture', function() {
                               date: date,
                               time: time,
                               pdf: pdf,
-                              homework: homework,
-                              desc: desc });
+                              homework: homework });
       lec.save();
     },
 
@@ -94,7 +93,7 @@ function ModalViewModel() {
 function LoadViewModel() {
   var self = this;
 
-  self.data = ko.observable('hello');
+  self.data = ko.observable();
 
   self.openDownload = function() {
     $('#b-loadModal .modal').modal();
@@ -104,7 +103,6 @@ function LoadViewModel() {
     Lecture.parseCSV(self.data());
     window.location.reload();
   };
-
 }
 
 function LecturesViewModel(modalVM, loadVM) {
