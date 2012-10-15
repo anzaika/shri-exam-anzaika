@@ -23,12 +23,6 @@ var Lecture = Model('lecture', function() {
       });
     },
 
-    find_edited: function() {
-      return this.select(function() {
-        return this.attr('edited') === true;
-      }).first();
-    },
-
     addLecture: function(title, lecturer, date, time, pdf, homework, desc ) {
       var lec = new Lecture({ title: title,
                               lecturer: lecturer,
