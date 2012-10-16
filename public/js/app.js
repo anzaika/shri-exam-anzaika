@@ -47,6 +47,15 @@ var Lecture = Model('lecture', function() {
     }
 
   });
+
+  this.include({
+    validate: function() {
+      if (this.attr('title') === "")
+        {
+          this.errors.add("title", "can't be empty");
+        }
+    }
+  });
 });
 
 function ModalViewModel() {
@@ -153,13 +162,50 @@ function LecturesViewModel(modalVM, loadVM) {
 }
 
 Lecture.load();
+
 var modalvm = new ModalViewModel();
 var loadvm = new LoadViewModel();
 var lecturevm = new LecturesViewModel(modalvm, loadvm);
-
 ko.applyBindings(lecturevm, document.getElementById('b-search'));
 ko.applyBindings(modalvm, document.getElementById('b-editModal'));
 ko.applyBindings(loadvm, document.getElementById('b-loadModal'));
+
+if (Lecture.all().length === 0)
+{
+  Lecture.parseCSV(
+    "Общий цикл разработки;Михаил Трошев;15.09.2012;12:00;http://yadi.sk/d/VDsJ4ZUBiq6u\n"+
+    "Task Tracker;Сергей Бережной;15.09.2012;13:00;http://yadi.sk/d/D5xTwoIciq6c\n"+
+    "Wiki;Сергей Бережной;15.09.2012;14:00;http://yadi.sk/d/7F9PuECdiq6G\n"+
+    "Командная строка Unix;Виктор Ашик;18.09.2012;19:00;http://yadi.sk/d/3N0d6h9rlRA8;https://github.com/yandex-shri/dz-unix-cli\n"+
+    "Редакторы кода;Вячеслав Олиянчук;18.09.2012;20:00;https://github.com/yandex-shri/lectures/blob/master/05-editors.md\n"+
+    "Браузеры;Георгий Мостоловица;20.09.2012;19:00;http://yadi.sk/d/-VjNYqjTqTca\n"+
+    "Системы контроля версий;Сергей Сергеев;20.09.2012;20:00;http://yadi.sk/d/a7aY8YXjr-hs\n"+
+    "Тестирование;Марина Широчкина;22.09.2012;12:00;http://yadi.sk/d/W7lDOetHqTWC\n"+
+    "Деплой;Павел Пушкарёв;22.09.2012;13:00;http://yadi.sk/d/N4FYrhS3qTSI\n"+
+    "HTTP протокол;Алексей Бережной;22.09.2012;14:00;http://yadi.sk/d/waP8x8maqTKM\n"+
+    "XSLT;Сергей Пузанков;24.09.2012;18:00;http://yadi.sk/d/PLpXM88frhSW;https://github.com/yandex-shri/dz-xslt\n"+
+    "Механизм работы браузера;Роман Комаров;25.09.2012;19:00;http://yadi.sk/d/wo1LfOGatbOM\n"+
+    "Кеширование на клиенте и сервере;Егор Львовский;25.09.2012;20:200;http://yadi.sk/d/EEEp53YstbNo\n"+
+    "Безопасность веб-приложений;Тарас Иващенко;27.09.2012;12:00;http://yadi.sk/d/bo1OpD2Av3vC\n"+
+    "Языки программирования;Алексей Воинов;28.09.2012;19:00;http://yadi.sk/d/LRpqvLuIv4UI;https://github.com/yandex-shri/dz-programming-languages\n"+
+    "JS базовые знания;Михаил Давыдов;29.09.2012;12:00;http://yadi.sk/d/uNQ-MR23w54y;https://github.com/yandex-shri/dz-js-basics\n"+
+    "Транспорт. AJAX;Михаил Давыдов;29.09.2012;13:00;http://yadi.sk/d/QpvJjsHdw5Oq;https://github.com/yandex-shri/dz-js-ajax\n"+
+    "JS. Асинхронность;Михаил Давыдов;29.09.2012;14:00;http://yadi.sk/d/7_0EkGHpw6pY;https://github.com/yandex-shri/dz-js-async\n"+
+    "Отладка кода;Алексей Андросов;2.10.2012;19:00;http://yadi.sk/d/5fTEBWfu01pFQ\n"+
+    "CSS;Михаил Трошев;2.10.2012;20:00;http://yadi.sk/d/1XZK0I1a05xaK\n"+
+    "Клиентская оптимизация;Иван Карев;4.10.2012;19:00;http://yadi.sk/d/S3dVJJdL01pTk;https://github.com/yandex-shri/dz-performance\n"+
+    "Профилирование;Михаил Корепанов;4.10.2012;20:00;http://yadi.sk/d/1EjnM84h01plG\n"+
+    "Регулярные выражения;Максим Ширшин;6.10.2012;12:00;http://yadi.sk/d/cPE_GA-w06Iag\n"+
+    "Фреймворки. Обзор;Алексей Андросов;9.10.2012;19:00;http://yadi.sk/d/92XeomWV06mg2\n"+
+    "jQuery;Алексей Бережной;9.10.2012;20:00;http://yadi.sk/d/4zPgYu1V06nAc\n"+
+    "БЭМ теория;Владимир Варанкин;11.10.2012;19:00;http://yadi.sk/d/105T-6Yh09LBT\n"+
+    "БЭМ практика;Владимир Варанкин;11.10.2012;20:00;http://yadi.sk/d/ykzBLsJB09MOn\n"+
+    "Шаблонизаторы;Сергей Бережной;13.10.2012;12:00;http://yadi.sk/d/tJ-_u1NH0C_5d\n"+
+    "Дизайн;Константин Горский;13.10.2012;13:00;http://yadi.sk/d/OdcBA5SD0C_7x\n"+
+    "Дизайн глазами разработчика;Михаил Трошев;13.10.2012;14:00;http://yadi.sk/d/00Q3C7W50C_9B"
+  );
+  lecturevm.updateSearch();
+}
 
 $('.b-admin__print').click(function() {
   window.print();
