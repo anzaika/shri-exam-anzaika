@@ -50,9 +50,7 @@ body {
 .b-admin__upload i {
   color: #555;
   font-size: 20px;
-  padding-top: 9px;
-  padding-right: 0px;
-  padding-left: 5px;
+  padding: 9px 0 0 5px;
 }
 
 /* b-admin__download */
@@ -65,9 +63,7 @@ body {
 .b-admin__download i {
   color: #555;
   font-size: 20px;
-  padding-top: 9px;
-  padding-right: 0px;
-  padding-left: 9px;
+  padding: 9px 0 0 9px;
 }
 
 /* b-admin__print */
@@ -80,9 +76,7 @@ body {
 .b-admin__print i {
   color: #555;
   font-size: 20px;
-  padding-top: 9px;
-  padding-right: 0px;
-  padding-left: 9px;
+  padding: 9px 0 0 9px;
 }
 
 /* b-admin__search */
@@ -90,12 +84,12 @@ body {
 .b-admin__search {
   text-decoration: none;
   float: left;
-  padding-left: 325px;
+  padding-left: 365px;
 }
 
-/* .b-admin__search input { */
-/*   margin: 0px auto; */
-/* } */
+.b-admin__search {
+  padding-top: 5px;
+}
 
 /* b-lecture */
 .b-lecture__remove i {
@@ -107,6 +101,10 @@ body {
 .b-lecture__edit i {
   color: #555;
   text-decoration: none;
+}
+
+ul.thumbnails li {
+  height: 106px;
 }
 
 ul.thumbnails li.span3:nth-child(4n + 5) {
